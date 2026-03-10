@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 时简 - 单机版时间管理APP
 
 [![Build Android APK](https://github.com/YOUR_USERNAME/shijian-app/actions/workflows/build-android.yml/badge.svg)](https://github.com/YOUR_USERNAME/shijian-app/actions/workflows/build-android.yml)
@@ -118,3 +119,6 @@ MIT License
 ---
 
 Made with ❤️ by 时简团队
+=======
+hello
+>>>>>>> 385765715ffa4abf6ac82b9fdff7e6168d33ec8d
