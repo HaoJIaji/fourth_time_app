@@ -18,15 +18,18 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '22'
+        node-version: '20'  # 修改：Node 22 可能太新，建议用 20（LTS）
         cache: 'npm'
         
-    - name: Set up JDK 11
+    - name: Set up JDK 17  # 修改：Capacitor 5/6 + Android Gradle Plugin 8+ 需要 JDK 17
       uses: actions/setup-java@v4
       with:
-        java-version: '11'
+        java-version: '17'
         distribution: 'temurin'
         
+    - name: Setup Android SDK  # 新增：必须安装 Android SDK
+      uses: android-actions/setup-android@v3
+      
     - name: Install Ionic CLI
       run: npm install -g @ionic/cli
       
@@ -38,12 +41,16 @@ jobs:
       
     - name: Sync with Capacitor Android
       run: npx cap sync android
+      
     - name: Make gradlew executable
       run: chmod +x android/gradlew 
+      
     - name: Build Debug APK
       working-directory: ./android
-      run: ./gradlew assembleDebug
-      
+      run: ./gradlew assembleDebug --stacktrace  # 新增：--stacktrace 方便排查错误
+      env:
+        GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m"'  # 新增：防止内存不足
+        
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
       with:
@@ -53,8 +60,10 @@ jobs:
         
     - name: Build Release APK
       working-directory: ./android
-      run: ./gradlew assembleRelease
-      
+      run: ./gradlew assembleRelease --stacktrace
+      env:
+        GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m"'
+        
     - name: Upload Release APK
       uses: actions/upload-artifact@v4
       with:
@@ -64,7 +73,7 @@ jobs:
         
     - name: Create Release
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2  # 修改：v1 已废弃，升级到 v2
       with:
         files: |
           android/app/build/outputs/apk/debug/app-debug.apk
