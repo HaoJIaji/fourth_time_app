@@ -1,0 +1,109 @@
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  .filter-select {
+    flex: 1;
+    background: #fff;
+    border-radius: 8px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
+}
+
+.search-item {
+  --background: #fff;
+  --border-radius: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 16px;
+}
+
+.activity-list {
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    color: #636E72;
+
+    ion-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+  }
+}
+
+.activity-card {
+  margin: 8px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+  ion-card-content {
+    padding: 16px;
+  }
+
+  .activity-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+
+    .category-badge {
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .duration {
+      flex: 1;
+      font-weight: bold;
+      color: #2D3436;
+    }
+
+    ion-button {
+      margin: 0;
+    }
+  }
+
+  .activity-content {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2D3436;
+    margin-bottom: 8px;
+  }
+
+  .activity-date {
+    font-size: 12px;
+    color: #636E72;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    ion-icon {
+      font-size: 14px;
+    }
+  }
+
+  .activity-note {
+    font-size: 12px;
+    color: #636E72;
+    margin-top: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+
+    ion-icon {
+      font-size: 14px;
+      margin-top: 2px;
+    }
+  }
+}
+
+ion-item-divider {
+  --background: transparent;
+  min-height: 8px;
+}

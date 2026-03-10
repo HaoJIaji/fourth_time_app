@@ -1,0 +1,44 @@
+.settings-list {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 8px 0;
+
+  ion-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 60px;
+
+    ion-icon {
+      font-size: 24px;
+      margin-right: 16px;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 13px;
+      color: #636E72;
+    }
+  }
+}
+
+ion-list-header {
+  --background: transparent;
+  padding-top: 16px;
+  padding-bottom: 8px;
+
+  ion-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2D3436;
+  }
+}
+
+ion-item-divider {
+  --background: transparent;
+  min-height: 16px;
+}

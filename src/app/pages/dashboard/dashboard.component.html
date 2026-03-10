@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title class="app-title">时简</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/settings">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- 时间维度切换 -->
+  <ion-segment [(ngModel)]="currentTab" (ionChange)="onTabChange(currentTab)" mode="ios">
+    <ion-segment-button value="today">
+      <ion-label>今日</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="week">
+      <ion-label>本周</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="month">
+      <ion-label>本月</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- 统计卡片 -->
+  <div class="stats-container">
+    <ion-card class="stat-card">
+      <ion-card-content>
+        <ion-icon name="time-outline" color="primary" class="stat-icon"></ion-icon>
+        <div class="stat-value">{{ totalHours.toFixed(1) }}h</div>
+        <div class="stat-label">总时长</div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="stat-card">
+      <ion-card-content>
+        <ion-icon name="list-outline" color="primary" class="stat-icon"></ion-icon>
+        <div class="stat-value">{{ recordCount }}</div>
+        <div class="stat-label">记录数</div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="stat-card">
+      <ion-card-content>
+        <ion-icon name="flame-outline" color="danger" class="stat-icon"></ion-icon>
+        <div class="stat-value">{{ streakDays }}天</div>
+        <div class="stat-label">连续记录</div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- 时长分布 -->
+  <ion-card class="chart-card">
+    <ion-card-header>
+      <ion-card-title>时长分布</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="!recordCount" class="empty-state">
+        <ion-text color="medium">暂无数据</ion-text>
+      </div>
+      
+      <div *ngIf="recordCount" class="distribution-bars">
+        <div class="dist-item" *ngIf="categoryStats['学习']">
+          <div class="dist-label">
+            <span class="category-tag" style="background: #4A90D9;">学习</span>
+            <span class="dist-value">{{ getCategoryHours('学习').toFixed(1) }}小时</span>
+          </div>
+          <div class="dist-bar-bg">
+            <div class="dist-bar" 
+                 [style.width.%]="getCategoryPercentage('学习')" 
+                 style="background: #4A90D9;"></div>
+          </div>
+          <span class="dist-percent">{{ getCategoryPercentage('学习').toFixed(0) }}%</span>
+        </div>
+
+        <div class="dist-item" *ngIf="categoryStats['工作']">
+          <div class="dist-label">
+            <span class="category-tag" style="background: #E74C3C;">工作</span>
+            <span class="dist-value">{{ getCategoryHours('工作').toFixed(1) }}小时</span>
+          </div>
+          <div class="dist-bar-bg">
+            <div class="dist-bar" 
+                 [style.width.%]="getCategoryPercentage('工作')" 
+                 style="background: #E74C3C;"></div>
+          </div>
+          <span class="dist-percent">{{ getCategoryPercentage('工作').toFixed(0) }}%</span>
+        </div>
+
+        <div class="dist-item" *ngIf="categoryStats['锻炼']">
+          <div class="dist-label">
+            <span class="category-tag" style="background: #27AE60;">锻炼</span>
+            <span class="dist-value">{{ getCategoryHours('锻炼').toFixed(1) }}小时</span>
+          </div>
+          <div class="dist-bar-bg">
+            <div class="dist-bar" 
+                 [style.width.%]="getCategoryPercentage('锻炼')" 
+                 style="background: #27AE60;"></div>
+          </div>
+          <span class="dist-percent">{{ getCategoryPercentage('锻炼').toFixed(0) }}%</span>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- 每日趋势 -->
+  <ion-card class="chart-card">
+    <ion-card-header>
+      <ion-card-title>每日趋势 (近7天)</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="!recordCount" class="empty-state">
+        <ion-text color="medium">暂无数据</ion-text>
+      </div>
+      
+      <div *ngIf="recordCount" class="trend-chart">
+        <div class="bar-container">
+          <div class="bar-item" *ngFor="let date of weekDates">
+            <div class="bar-wrapper">
+              <div class="bar" 
+                   [style.height.%]="getBarHeight(date)" 
+                   style="background: #6C5CE7;"></div>
+            </div>
+            <span class="bar-label">{{ formatDate(date) }}</span>
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- 最常进行 -->
+  <ion-card class="info-card">
+    <ion-card-content>
+      <div class="info-row">
+        <span class="info-label">最常进行</span>
+        <span class="info-value" [style.color]="colors[mostFrequent] || '#2D3436'">
+          {{ mostFrequent }}
+        </span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- 底部留白 -->
+  <div style="height: 80px;"></div>
+</ion-content>
+
+<!-- 悬浮添加按钮 -->
+<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-fab-button routerLink="/record" color="primary">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

@@ -1,0 +1,179 @@
+.app-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #6C5CE7;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.stat-card {
+  flex: 1;
+  margin: 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+  ion-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+  }
+}
+
+.stat-icon {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2D3436;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #636E72;
+}
+
+.chart-card {
+  margin: 16px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #636E72;
+}
+
+// 分布图样式
+.distribution-bars {
+  .dist-item {
+    margin-bottom: 16px;
+
+    .dist-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+
+      .category-tag {
+        color: white;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .dist-value {
+        font-size: 14px;
+        color: #636E72;
+      }
+    }
+
+    .dist-bar-bg {
+      height: 20px;
+      background: #E8E8E8;
+      border-radius: 10px;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .dist-bar {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .dist-percent {
+      font-size: 12px;
+      color: #636E72;
+      margin-left: 8px;
+      min-width: 35px;
+      text-align: right;
+    }
+  }
+}
+
+// 趋势图样式
+.trend-chart {
+  .bar-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 120px;
+    padding: 10px 0;
+
+    .bar-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+
+      .bar-wrapper {
+        height: 100px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        width: 100%;
+
+        .bar {
+          width: 24px;
+          min-height: 4px;
+          border-radius: 4px 4px 0 0;
+          transition: height 0.3s ease;
+        }
+      }
+
+      .bar-label {
+        font-size: 10px;
+        color: #636E72;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+.info-card {
+  margin: 16px 0;
+  border-radius: 12px;
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .info-label {
+      font-size: 14px;
+      color: #636E72;
+    }
+
+    .info-value {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+}
+
+ion-segment {
+  background: #fff;
+  border-radius: 10px;
+  margin-bottom: 16px;
+
+  ion-segment-button {
+    --indicator-color: #6C5CE7;
+    --color: #636E72;
+    --color-checked: #6C5CE7;
+  }
+}
+
+ion-fab {
+  margin-bottom: 16px;
+}

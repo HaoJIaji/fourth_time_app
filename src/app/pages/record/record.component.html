@@ -1,0 +1,149 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>新记录</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- 行为类型选择 -->
+  <div class="section">
+    <ion-label class="section-label">行为类型</ion-label>
+    <div class="category-buttons">
+      <ion-button 
+        [fill]="category === '学习' ? 'solid' : 'outline'"
+        [color]="category === '学习' ? 'primary' : 'medium'"
+        (click)="category = '学习'"
+        class="category-btn"
+        style="--background: #4A90D9; --background-activated: #3A7BC8;">
+        学习
+      </ion-button>
+      <ion-button 
+        [fill]="category === '工作' ? 'solid' : 'outline'"
+        [color]="category === '工作' ? 'danger' : 'medium'"
+        (click)="category = '工作'"
+        class="category-btn"
+        style="--background: #E74C3C; --background-activated: #D63C2C;">
+        工作
+      </ion-button>
+      <ion-button 
+        [fill]="category === '锻炼' ? 'solid' : 'outline'"
+        [color]="category === '锻炼' ? 'success' : 'medium'"
+        (click)="category = '锻炼'"
+        class="category-btn"
+        style="--background: #27AE60; --background-activated: #1E9B50;">
+        锻炼
+      </ion-button>
+    </div>
+  </div>
+
+  <ion-item-divider></ion-item-divider>
+
+  <!-- 快捷模板 -->
+  <div class="section">
+    <ion-label class="section-label">快捷模板</ion-label>
+    <ion-select 
+      [(ngModel)]="selectedTemplate" 
+      (ionChange)="onTemplateSelect()"
+      placeholder="选择预设模板"
+      interface="action-sheet">
+      <ion-select-option *ngFor="let t of templates" [value]="t.category + ': ' + t.content">
+        {{ t.category }}: {{ t.content }}
+      </ion-select-option>
+    </ion-select>
+  </div>
+
+  <!-- 行为内容 -->
+  <div class="section">
+    <ion-label class="section-label">行为内容</ion-label>
+    <ion-item class="input-item">
+      <ion-input 
+        [(ngModel)]="content" 
+        placeholder="输入行为内容..."
+        clearInput="true">
+      </ion-input>
+    </ion-item>
+  </div>
+
+  <ion-item-divider></ion-item-divider>
+
+  <!-- 时长记录方式 -->
+  <div class="section">
+    <ion-label class="section-label">时长记录</ion-label>
+    <ion-segment [(ngModel)]="isTimerMode" mode="ios">
+      <ion-segment-button [value]="false">
+        <ion-label>直接输入</ion-label>
+      </ion-segment-button>
+      <ion-segment-button [value]="true">
+        <ion-label>计时器</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- 直接输入区域 -->
+  <div class="section" *ngIf="!isTimerMode">
+    <ion-item class="input-item">
+      <ion-label position="stacked">时长（分钟）</ion-label>
+      <ion-input 
+        [(ngModel)]="duration" 
+        type="number"
+        placeholder="输入分钟数">
+      </ion-input>
+    </ion-item>
+
+    <div class="quick-buttons">
+      <ion-button 
+        *ngFor="let d of quickDurations"
+        fill="outline" 
+        size="small"
+        (click)="setQuickDuration(d)">
+        {{ d }}分钟
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- 计时器区域 -->
+  <div class="section timer-section" *ngIf="isTimerMode">
+    <div class="timer-display">{{ timerDisplay }}</div>
+    <ion-button 
+      expand="block" 
+      [color]="timerRunning ? 'danger' : 'primary'"
+      (click)="toggleTimer()"
+      class="timer-btn">
+      {{ timerRunning ? '结束计时' : '开始计时' }}
+    </ion-button>
+  </div>
+
+  <ion-item-divider></ion-item-divider>
+
+  <!-- 备注 -->
+  <div class="section">
+    <ion-label class="section-label">备注（可选）</ion-label>
+    <ion-item class="input-item">
+      <ion-textarea 
+        [(ngModel)]="note" 
+        placeholder="添加备注..."
+        rows="3">
+      </ion-textarea>
+    </ion-item>
+  </div>
+
+  <!-- 保存按钮 -->
+  <div class="section save-section">
+    <ion-button 
+      expand="block" 
+      color="primary"
+      (click)="saveRecord()"
+      class="save-btn"
+      [disabled]="!content.trim() || duration <= 0">
+      保存记录
+    </ion-button>
+  </div>
+
+  <!-- 底部留白 -->
+  <div style="height: 40px;"></div>
+</ion-content>

@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>设置</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- 数据管理 -->
+  <ion-list-header>
+    <ion-label>数据管理</ion-label>
+  </ion-list-header>
+  
+  <ion-list class="settings-list" lines="full">
+    <ion-item button detail (click)="exportData()">
+      <ion-icon name="download-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h2>导出数据</h2>
+        <p>导出为JSON格式备份</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item button detail (click)="importData()">
+      <ion-icon name="upload-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h2>导入数据</h2>
+        <p>从JSON文件恢复数据</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item button detail (click)="clearAllData()">
+      <ion-icon name="trash-outline" slot="start" color="danger"></ion-icon>
+      <ion-label color="danger">
+        <h2>清空数据</h2>
+        <p>删除所有记录，不可恢复</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item-divider></ion-item-divider>
+
+  <!-- 关于 -->
+  <ion-list-header>
+    <ion-label>关于</ion-label>
+  </ion-list-header>
+
+  <ion-list class="settings-list" lines="full">
+    <ion-item>
+      <ion-icon name="information-circle-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h2>时简 TimeTracker</h2>
+        <p>版本 {{ appVersion }} | 单机版时间管理工具</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="shield-checkmark-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h2>隐私保护</h2>
+        <p>数据完全本地存储，无网络传输</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- 底部留白 -->
+  <div style="height: 40px;"></div>
+</ion-content>
